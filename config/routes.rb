@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     end
   end
 
+resources :jobs do
+  resources :resumes
+end
+
   resources :jobs
   root 'jobs#index'
 end

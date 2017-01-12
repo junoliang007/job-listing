@@ -7,4 +7,6 @@ def admin?
   is_admin
 end
 
+has_many :resumes
+
 end
