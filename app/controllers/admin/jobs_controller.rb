@@ -2,6 +2,7 @@ class Admin::JobsController < ApplicationController
 
 before_action :authenticate_user!, only: [:new, :create, :update, :edit, :destroy]
 before_action :require_is_admin
+layout "admin"
 
 
 def show
@@ -9,7 +10,7 @@ def show
 end
 
 def index
-  @jobs = Job.where(:is_hidden => false).order("created_at DESC")
+  @jobs = Job.all
 end
 
 def new
@@ -44,6 +45,18 @@ def destroy
   @job = Job.find(params[:id])
   @job.destroy
   redirect_to admin_jobs_path
+end
+
+def publish
+  @job = Job.find(params[:id])
+  @job.publish!
+  redirect_to :back
+end
+
+def hide
+  @job = Job.find(params[:id])
+  @job.hide!
+  redirect_to :back
 end
 
 private
